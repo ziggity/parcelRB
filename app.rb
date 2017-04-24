@@ -15,9 +15,16 @@ get('/results') do
   @length = @length.to_i
   @height = params.fetch('height')
   @height = @height.to_i
-  @volume = params.fetch('volume')
-  @volume = @volume.to_i
-  @parcel = Parcels.new(@width, @length, @height, @volume)
+  @weight = params.fetch('weight')
+  @weight = @weight.to_i
+  @parcel = Parcels.new(@width, @length, @height, @weight)
+  @volume = @parcel.volume()
   @price = @parcel.price()
+  @parcel.discount()
+  @price = @parcel.price()
+
+  # if params.fetch('giftwrap')
+  # @price = @parcel.giftwrap()
+  # end
   erb(:results)
 end
